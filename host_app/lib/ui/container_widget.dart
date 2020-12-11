@@ -18,10 +18,13 @@ class ContainerWidgetState extends State<ContainerWidget> {
   final PageController _pageController = TabBarController().pageController;
   int _currentIndex = 0;
 
-  ContainerWidgetState(this._pages);
+  ContainerWidgetState(this._pages) {
+    TabBarController().changeTabBarSelection = _onPageChanged;
+  }
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: Text('我是一个Flutter，而且我的Host Module'),
@@ -41,9 +44,9 @@ class ContainerWidgetState extends State<ContainerWidget> {
 
   void openTab(int index) {
     _pageController.jumpToPage(index);
-    // setState(() {
-    //   _currentIndex = index;
-    // });
+    setState(() {
+      _currentIndex = index;
+    });
   }
 
   Widget _pageView(BuildContext context) {
@@ -68,8 +71,11 @@ class TabBarController {
 
   static TabBarController _sharedInstance() => _shared;
 
+  Function(int index) changeTabBarSelection;
+
   void switchTabBar(int index) {
-    pageController.animateToPage(index, duration: Duration(milliseconds: 150), curve: Curves.easeInOut);
+    changeTabBarSelection(index);
+    //pageController.animateToPage(index, duration: Duration(milliseconds: 150), curve: Curves.easeInOut);
     // return;
     // pageController.jumpToPage(index);
   }
