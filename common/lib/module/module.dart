@@ -13,10 +13,6 @@ abstract class FlutterModule {
   //If your module doesn't need to listen to the route change, return [] or null
   List<NavigatorObserver> get navigatorObservers;
 
-  ///Return a function to handle the exceptions caught by *[CrashReporter], this function return true means you consume the error and this error will not be reported to bugly.
-  ///If your module doesn't need to handle error, return null
-  bool Function(dynamic error) get errorHandler;
-
   //You can initialize your module by override this method, don't initialize your module in construct method.
   prepare() async{
 
